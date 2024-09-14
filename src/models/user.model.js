@@ -138,4 +138,25 @@ Continuing Use:
 You continue using the app without interruption.
 This cycle repeats until the refresh token expires (after 30 days), at which point you'll need to log in again.
 This process ensures that you have secure, short-term access to resources while minimizing the need 
-to re-enter your credentials frequently.*/
+to re-enter your credentials frequently.   
+
+The reason we use access tokens instead of directly using the refresh token for every request is based on security best practices. Here are some key points:
+
+Security of Refresh Tokens:
+
+Refresh tokens are long-lived and provide a means to obtain new access tokens without re-entering login credentials. If a refresh token were used directly for API requests, its exposure could result in long-term unauthorized access if stolen.
+By using access tokens for short-term access, the risk of a stolen token is limited because it will expire soon, whereas a stolen refresh token would give long-term access.
+Limited Scope of Access Tokens:
+
+Access tokens are scoped for specific actions or resources and have a short lifespan. This means they are less risky to use for everyday API requests, limiting the impact of potential misuse.
+Refresh tokens, on the other hand, are designed only for requesting new access tokens, not for performing other actions like fetching restaurant data. This separation of responsibility adds another layer of security.
+Reduced Attack Surface:
+
+Since refresh tokens are more powerful (they can generate new access tokens), they are usually stored securely and only used when absolutely necessary.
+Keeping the refresh token use infrequent (only for refreshing access tokens) limits how often it is exposed or transferred over the network, reducing the risk of it being intercepted.
+Access Tokens are More Efficient:
+
+Access tokens are usually lighter (smaller in size) and optimized for fast and frequent access to protected resources.
+Using the refresh token for every request would introduce unnecessary overhead for the server and increase the complexity of token validation.
+
+*/
