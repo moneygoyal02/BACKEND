@@ -159,4 +159,26 @@ Access Tokens are More Efficient:
 Access tokens are usually lighter (smaller in size) and optimized for fast and frequent access to protected resources.
 Using the refresh token for every request would introduce unnecessary overhead for the server and increase the complexity of token validation.
 
+
+1. JWT (JSON Web Token):
+Purpose: JWT is used for securely transmitting information between parties as a JSON object. It's commonly used for authentication (like session tokens) and information exchange.
+How it works:
+A JWT consists of three parts: Header, Payload, and Signature.
+The token is created on the server after the user successfully logs in, and the token is sent back to the client.
+The client sends this token with each request to access protected routes or resources.
+JWT is stateless, meaning the server doesn't need to store the token in the session. Instead, it's self-contained, as it carries its own authentication claims (like user info or roles).
+Use case: Mostly used in web applications for stateless authentication. The client stores the JWT, usually in localStorage or a cookie, and passes it with each request.
+Security: JWT itself is signed (using HMAC or RSA) to ensure the authenticity of the claims, but it is not encrypted by default, so sensitive data should not be placed in the payload without encryption.
+2. bcrypt:
+Purpose: bcrypt is a password hashing function. It is used to securely hash and store passwords in databases.
+How it works:
+When a user creates a password, bcrypt hashes the password with a salt, which is a random value that is added to the password before hashing to prevent pre-computed attacks (rainbow tables).
+When the user tries to log in, bcrypt checks if the hashed version of the password they provided matches the one stored in the database.
+bcrypt is slow by design to mitigate brute-force attacks, and it allows for setting a work factor (how many iterations it will take).
+Use case: Used for password hashing and verification to ensure that stored passwords are protected in case of a database breach.
+Security: bcrypt ensures the password is stored in a hashed form, and the hashing process is resistant to brute-force attacks.
+Key Differences:
+JWT is for authentication and session management, while bcrypt is used for secure password storage.
+JWT involves creating tokens that can be verified and used to validate a user’s identity, while bcrypt hashes passwords to prevent storing them in plain text.
+
 */
